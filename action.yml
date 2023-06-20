@@ -1,5 +1,5 @@
-name: generate-package
-description: A Github action to generate a package from user readable files 
+name: generate-distribution
+description: A Github action to generate a distribution from user-readable files 
 runs:
     using: 'docker'
     image: 'Dockerfile'
