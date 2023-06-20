@@ -1,0 +1,9 @@
+name: generate-package
+description: A Github action to generate a package from user readable files 
+runs:
+    using: 'docker'
+    image: 'Dockerfile'
+author: iGEM-Engineering
+branding:
+    icon:  'layers'
+    color: 'purple'
