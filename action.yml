@@ -58,6 +58,20 @@ runs:
           shell: bash
           run: python3 ${{ github.action_path }}/scripts/build_distribution.py
 
+        - name: Commit changes, ready to push
+          shell: bash
+          run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add *.nt *.md *.fasta *.gb README.md
+            git add views/*
+            git diff-index --quiet HEAD . || git commit -m "Automatically update exports"
+        - name: Push changes
+          uses: ad-m/github-push-action@master
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            branch: ${{ github.ref }}
+
 author: iGEM-Engineering
 branding:
     icon:  'layers'
