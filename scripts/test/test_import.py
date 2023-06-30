@@ -62,7 +62,6 @@ class TestImportParts(unittest.TestCase):
             comparison_file = os.path.join(test_dir, 'test_files', t)
             assert filecmp.cmp(test_file, comparison_file), f'Parts cache file {t} is not identical'
 
-    @unittest.skip("Failing due to sevahub being down")
     def test_all_import_types(self):
         """Test ability to retrieve parts from all different import sources"""
         tmp_sub = copy_to_tmp(package=['J23102-modified.fasta'], renames={'imports_test.xlsx': 'test_package.xlsx'})
