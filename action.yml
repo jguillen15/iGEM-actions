@@ -1,5 +1,10 @@
 name: generate-distribution
 description: A Github action to generate a distribution from user-readable files 
+inputs:
+  repo-token:
+    description: The github token used to mange commiting and push
+    required: true
+    default: ${{ github.token }}
 runs:
     using: composite
     steps:
@@ -69,7 +74,7 @@ runs:
         - name: Push changes
           uses: ad-m/github-push-action@master
           with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
+            github_token: repo-token
             branch: ${{ github.ref }}
 
 author: iGEM-Engineering
