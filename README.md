@@ -6,6 +6,8 @@ This repository contains the github actions and scripts required to processs and
 
 The aim of this package is to simplify the package creation process, streamline package development and ensure the robust creation and utilisation of the iGEM distribution.  
 
+Calculates the complexity score for IDT orders.
+
 ## Structure 
 
 The `./scripts` folder contains a python library of scripts that automatically collect, generate or validate materials that are contained within an iGEM distribution package. This includes any requirements, python files and test cases that are required to ensure the scripts function as intended. 
