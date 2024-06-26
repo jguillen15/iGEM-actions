@@ -31,7 +31,7 @@ class TestDistributionProduction(unittest.TestCase):
                     'https://synbiohub.org/public/igem/BBa_J23102',
                     'https://synbiohub.org/public/igem/pSB1C3',
                     'http://parts.igem.org/BBa_J364007', f'{pkg}pOpen_v4',
-                    'https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115',
+                    'https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115.1',
                     f'{pkg}LmrA', f'{pkg}J23102_modified',
                     # TODO: should these be bare or versioned?
                     f'{pkg}NM_005341_4', f'{pkg}NM_005342', f'{pkg}NM_005343'
