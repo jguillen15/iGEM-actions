@@ -1,7 +1,7 @@
 LOCUS       JWYZ01000115            3242 bp    DNA     linear   BCT 16-JAN-2015
 DEFINITION  Escherichia coli strain CVM N37069PS N37069PS_contig_115, whole
             genome shotgun sequence.
-ACCESSION   JWYZ01000115
+ACCESSION   JWYZ01000115 JWYZ01000000
 VERSION     JWYZ01000115.1
 DBLINK      BioProject: PRJNA266657
             BioSample: SAMN03177677
@@ -13,8 +13,10 @@ SOURCE      Escherichia coli
 REFERENCE   1  (bases 1 to 3242)
   AUTHORS   Tyson,G.H., McDermott,P.F., Li,C., Chen,Y., Tadesse,D.A.,
             Mukherjee,S., Bodeis-Jones,S., Kabera,C., Gaines,S.A.,
-            Loneragan,G.H., Edrington,T.S., Torrence,M., Harhay,D.M. and Zhao,S.
-  TITLE     WGS accurately predicts antimicrobial resistance in Escherichia coli
+            Loneragan,G.H., Edrington,T.S., Torrence,M., Harhay,D.M. and
+            Zhao,S.
+  TITLE     WGS accurately predicts antimicrobial resistance in Escherichia
+            coli
   JOURNAL   J. Antimicrob. Chemother. 70 (10), 2763-2769 (2015)
    PUBMED   26142410
 REFERENCE   2  (bases 1 to 3242)
@@ -24,19 +26,27 @@ REFERENCE   2  (bases 1 to 3242)
   TITLE     Direct Submission
   JOURNAL   Submitted (17-NOV-2014) CVM, FDA, 8401 Muirkirk Rd, Laurel, MD
             20708, USA
-COMMENT     ##Genome-Assembly-Data-START##
-            Assembly Method              :: CLC Genomics Workbench v. 7.5
-            Assembly Name                :: Escherichia coli CVM N37069PS v1.0
-            Genome Coverage              :: 48.5x
-            Sequencing Technology        :: Illumina MiSeq
+COMMENT     Annotation was added by the NCBI Prokaryotic Genome Annotation
+            Pipeline (released 2013). Information about the Pipeline can be
+            found here: http://www.ncbi.nlm.nih.gov/genome/annotation_prok/
+            
+            ##Genome-Assembly-Data-START##
+            Assembly Method       :: CLC Genomics Workbench v. 7.5
+            Assembly Name         :: Escherichia coli CVM N37069PS v1.0
+            Genome Coverage       :: 48.5x
+            Sequencing Technology :: Illumina MiSeq
             ##Genome-Assembly-Data-END##
+            
             ##Genome-Annotation-Data-START##
             Annotation Provider          :: NCBI
             Annotation Date              :: 12/29/2014 14:07:05
-            Annotation Pipeline :: NCBI Prokaryotic Genome Annotation Pipeline
-            Annotation Method :: Best-placed reference protein set; GeneMarkS+
+            Annotation Pipeline          :: NCBI Prokaryotic Genome Annotation
+                                            Pipeline
+            Annotation Method            :: Best-placed reference protein set;
+                                            GeneMarkS+
             Annotation Software revision :: 2.9 (rev. 455303)
-            Features Annotated :: Gene; CDS; rRNA; tRNA; ncRNA; repeat_region
+            Features Annotated           :: Gene; CDS; rRNA; tRNA; ncRNA;
+                                            repeat_region
             Genes                        :: 4,855
             CDS                          :: 4,642
             Pseudo Genes                 :: 107
@@ -46,9 +56,6 @@ COMMENT     ##Genome-Assembly-Data-START##
             ncRNA                        :: 17
             Frameshifted Genes           :: 41
             ##Genome-Annotation-Data-END##
-            Annotation was added by the NCBI Prokaryotic Genome Annotation
-            Pipeline (released 2013). Information about the Pipeline can be
-            found here: http://www.ncbi.nlm.nih.gov/genome/annotation_prok/
 FEATURES             Location/Qualifiers
      source          1..3242
                      /organism="Escherichia coli"
@@ -57,7 +64,7 @@ FEATURES             Location/Qualifiers
                      /strain="CVM N37069PS"
                      /isolation_source="Farm"
                      /db_xref="taxon:562"
-                     /country="USA"
+                     /geo_loc_name="USA"
                      /collection_date="20-Jan-2012"
      gene            complement(<1..115)
                      /locus_tag="PU64_23660"
@@ -84,9 +91,9 @@ FEATURES             Location/Qualifiers
                      /transl_table=11
                      /product="hypothetical protein"
                      /protein_id="KIG36585.1"
-                     /translation="MSNTLNHTSSRQIVRHYTHRQKRRKHLMQYFVSANGLFELKVKVY
-                     AFLFDVILQGNCPSVSIIADIPCFFLFHFHAIRYAFYSIHPTYRAECESERLTLLLTAQ
-                     GCALSL"
+                     /translation="MSNTLNHTSSRQIVRHYTHRQKRRKHLMQYFVSANGLFELKVKV
+                     YAFLFDVILQGNCPSVSIIADIPCFFLFHFHAIRYAFYSIHPTYRAECESERLTLLLT
+                     AQGCALSL"
      gene            complement(396..791)
                      /locus_tag="PU64_23670"
      CDS             complement(396..791)
@@ -99,9 +106,9 @@ FEATURES             Location/Qualifiers
                      /transl_table=11
                      /product="mRNA endoribonuclease"
                      /protein_id="KIG36580.1"
-                     /translation="MVERTAVFPAGRHSLYAEHRYSAAIRSGDLLFVSGQVGSREDGTP
-                     EPDFQQQVRLAFDNLHATLAAAGCTFDDIIDVTSFHTDPENQFEDIMTVKNEIFSAPPY
-                     PNWTAVGVTWLAGFDFEIKVIARIPEQ"
+                     /translation="MVERTAVFPAGRHSLYAEHRYSAAIRSGDLLFVSGQVGSREDGT
+                     PEPDFQQQVRLAFDNLHATLAAAGCTFDDIIDVTSFHTDPENQFEDIMTVKNEIFSAP
+                     PYPNWTAVGVTWLAGFDFEIKVIARIPEQ"
      gene            complement(922..1635)
                      /locus_tag="PU64_23675"
      CDS             complement(922..1635)
@@ -114,11 +121,11 @@ FEATURES             Location/Qualifiers
                      /transl_table=11
                      /product="oxidoreductase"
                      /protein_id="KIG36581.1"
-                     /translation="MGAFTGKTVLILGGSRGIGAAIVRRFVTDGANVRFTYAGSKDAAK
-                     RLAQETGATAVFTDSADRDAVIDVVRKSGALDILVVNAGIGVFGEALELNADDIDRLFK
-                     INIHAPYHASVEAARQMPEGGRILIIGSVNGDRMPVAGMAAYAASKSALQGMARGLARD
-                     FGPRGITINVVQPGPIDTDANPANGPMRDMLHSLMAIKRHGQPEEVAGMVAWLAGPEAS
-                     FVTGAMHTIDGAFGA"
+                     /translation="MGAFTGKTVLILGGSRGIGAAIVRRFVTDGANVRFTYAGSKDAA
+                     KRLAQETGATAVFTDSADRDAVIDVVRKSGALDILVVNAGIGVFGEALELNADDIDRL
+                     FKINIHAPYHASVEAARQMPEGGRILIIGSVNGDRMPVAGMAAYAASKSALQGMARGL
+                     ARDFGPRGITINVVQPGPIDTDANPANGPMRDMLHSLMAIKRHGQPEEVAGMVAWLAG
+                     PEASFVTGAMHTIDGAFGA"
      gene            1706..2299
                      /locus_tag="PU64_23680"
      CDS             1706..2299
@@ -131,10 +138,10 @@ FEATURES             Location/Qualifiers
                      /transl_table=11
                      /product="TetR family transcriptional regulator"
                      /protein_id="KIG36582.1"
-                     /translation="MVTKKQSRVPGRPRRFAPEQAISAAKVLFHQKGFDAVSVAEVTDY
-                     LGINPPSLYAAFGSKAGLFSRVLNEYVGTEAIPLADILRDDRPVGECLVEVLKEAARRY
-                     SQNGGCAGCMVLEGIHSHDPLARDIAVQYYHAAETTIYDYIARRHPQSAQCVTDFMSTV
-                     MSGLSAKAREGHSIEQLCATAALAGEAIKTLLKE"
+                     /translation="MVTKKQSRVPGRPRRFAPEQAISAAKVLFHQKGFDAVSVAEVTD
+                     YLGINPPSLYAAFGSKAGLFSRVLNEYVGTEAIPLADILRDDRPVGECLVEVLKEAAR
+                     RYSQNGGCAGCMVLEGIHSHDPLARDIAVQYYHAAETTIYDYIARRHPQSAQCVTDFM
+                     STVMSGLSAKAREGHSIEQLCATAALAGEAIKTLLKE"
      gene            2444..2896
                      /locus_tag="PU64_23685"
      CDS             2444..2896
@@ -147,9 +154,9 @@ FEATURES             Location/Qualifiers
                      /transl_table=11
                      /product="toxin-antitoxin biofilm protein TabA"
                      /protein_id="KIG36583.1"
-                     /translation="MIIGNIHNLQPWLPQELRQAIEHIKAHVTAETPKGKHDIEGNHLF
-                     YLISEDMTEPYEARRAEYHARYLDIQIVLKGQEGMTFSTQPAGTPDTDWLADKDIAFLP
-                     EGVDEKTVILNEGDFVVFYPGEVHKPLCAVGAPAQVRKAVVKMLMA"
+                     /translation="MIIGNIHNLQPWLPQELRQAIEHIKAHVTAETPKGKHDIEGNHL
+                     FYLISEDMTEPYEARRAEYHARYLDIQIVLKGQEGMTFSTQPAGTPDTDWLADKDIAF
+                     LPEGVDEKTVILNEGDFVVFYPGEVHKPLCAVGAPAQVRKAVVKMLMA"
      gene            3019..>3242
                      /locus_tag="PU64_23690"
      CDS             3019..>3242
@@ -162,9 +169,9 @@ FEATURES             Location/Qualifiers
                      /transl_table=11
                      /product="DNA-binding protein"
                      /protein_id="KIG36584.1"
-                     /translation="MSKISGWNFSQNITSADNCKQKNEDLDTWYVGMNDFARIAGGQNS
-                     RSNILSPRAFLEFLAKIFTLGYVDFSKRS"
-ORIGIN
+                     /translation="MSKISGWNFSQNITSADNCKQKNEDLDTWYVGMNDFARIAGGQN
+                     SRSNILSPRAFLEFLAKIFTLGYVDFSKRS"
+ORIGIN      
         1 aaaaaaaagc ccctcgattg aggggctggg aatgggtgat caacgggaag aaaaacggca
        61 ggccagcgtc ttttttcaga cgcggtaaga caaaatgtcg aacacactga accatacatc
       121 ctcccggcaa attgtccggc attatactca tcgtcagaag cggcgcaagc atttgatgca
@@ -221,3 +228,4 @@ ORIGIN
      3181 tttttggagt ttttggctaa gatatttacc ctgggttatg tggattttag caaacgctcc
      3241 aa
 //
+
