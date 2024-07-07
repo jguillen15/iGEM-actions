@@ -6,6 +6,7 @@ import calculate_complexity_scores
 #from sbol_utilities.calculate_complexity_scores.py
 from pathlib import Path
 from unittest.mock import patch
+from scriptutils.directories import EXPORT_DIRECTORY, SBOL_EXPORT_NAME
 
 error = False
 package = scriptutils.package_dirs()
@@ -17,7 +18,7 @@ try:
     test_dir = Path(__file__).parent
     test_args = ['calculate_complexity_scores.py',
                      '--credentials', str(test_dir.parent / 'test_secret_idt_credentials.json'),
-                     str(package / 'views' / 'package.nt'), 'distro_output.nt']
+                     os.path.join(package, EXPORT_DIRECTORY, SBOL_EXPORT_NAME), 'distro_output.nt']
     with patch.object(sys, 'argv', test_args):
         calculate_complexity_scores.main()
 
