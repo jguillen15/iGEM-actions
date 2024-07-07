@@ -17,7 +17,7 @@ try:
     """Test that a command-line invocation of complexity scoring works"""
     test_dir = Path(__file__).parent
     test_args = ['calculate_complexity_scores.py',
-                     '--credentials', 'test_secret_idt_credentials.json',
+                     '--credentials', os.path.join(package, 'test_secret_idt_credentials.json'),
                      os.path.join(package, EXPORT_DIRECTORY, DISTRIBUTION_NAME), 'distro_output.nt']
     with patch.object(sys, 'argv', test_args):
         calculate_complexity_scores.main()
