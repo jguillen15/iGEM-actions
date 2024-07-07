@@ -2,8 +2,8 @@ import os
 import sys
 
 import scriptutils
+#import sbol_utilities.calculate_complexity_scores
 import calculate_complexity_scores
-#from sbol_utilities.calculate_complexity_scores.py
 from pathlib import Path
 from unittest.mock import patch
 from scriptutils.directories import EXPORT_DIRECTORY, SBOL_EXPORT_NAME, DISTRIBUTION_NAME
@@ -17,7 +17,7 @@ try:
     """Test that a command-line invocation of complexity scoring works"""
     test_dir = Path(__file__).parent
     test_args = ['calculate_complexity_scores.py',
-                     '--credentials', str(test_dir.parent / 'test_secret_idt_credentials.json'),
+                     '--credentials', os.path.join(package, 'test_secret_idt_credentials.json'),
                      os.path.join(package, EXPORT_DIRECTORY, DISTRIBUTION_NAME), 'distro_output.nt']
     with patch.object(sys, 'argv', test_args):
         calculate_complexity_scores.main()
