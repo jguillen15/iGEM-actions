@@ -55,6 +55,14 @@ runs:
           shell: bash
           run: python3 ${{ github.action_path }}/scripts/expand_combinations.py
 
+        - name: Calculate complexity scores for composite parts
+          shell: bash
+          run: |
+            echo "$IDT_CREDENTIALS" > test_secret_idt_credentials.json
+            python3 ${{ github.action_path }}/scripts/compute_complexity_scores.py
+          env:
+            IDT_CREDENTIALS: ${{ secrets.IDT_CREDENTIALS }}
+
         - name: Generate markdown from packages
           shell: bash
           run: python3 ${{ github.action_path }}/scripts/generate_markdown.py
