@@ -17,7 +17,7 @@ try:
     test_dir = Path(__file__).parent
     test_args = ['calculate_complexity_scores.py',
                      '--credentials', str(test_dir.parent / 'test_secret_idt_credentials.json'),
-                     str(test_dir.parent / 'Test_file_Complexity_Scores.nt'), 'distro_output.nt']
+                     str(test_dir.parent / 'views' / 'package.nt'), 'distro_output.nt']
     with patch.object(sys, 'argv', test_args):
         calculate_complexity_scores.main()
 
