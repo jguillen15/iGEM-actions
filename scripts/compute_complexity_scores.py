@@ -2,7 +2,8 @@ import os
 import sys
 
 import scriptutils
-import sbol_utilities
+import calculate_complexity_scores
+#from sbol_utilities.calculate_complexity_scores.py
 from pathlib import Path
 from unittest.mock import patch
 
@@ -18,7 +19,7 @@ try:
                      '--credentials', str(test_dir.parent / 'test_secret_idt_credentials.json'),
                      package, 'distro_output.nt']
     with patch.object(sys, 'argv', test_args):
-        sbol_utilities.calculate_complexity_scores.main()
+        calculate_complexity_scores.main()
 
 except (OSError, ValueError) as e:
     print(f'Could not calculate complexity scores for {os.path.basename(package)}: {e}')
