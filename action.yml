@@ -5,6 +5,9 @@ inputs:
     description: The github token used to mange commiting and push
     required: true
     default: ${{ github.token }}
+  secret-input:
+    description: 'A secret input'
+    required: true
 runs:
     using: composite
     steps:
