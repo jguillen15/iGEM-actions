@@ -13,7 +13,7 @@ package = scriptutils.package_dirs()
 
 
 print(f'Calculating complexity scores for {os.path.basename(package)}')
-secret_input = os.getenv('INPUT_SECRET_INPUT')  # Note: GitHub actions inputs are prefixed with 'INPUT_' and converted to uppercase with '-' replaced by '_'
+secret_input = os.getenv('SECRET_INPUT')  # Note: GitHub actions inputs are prefixed with 'INPUT_' and converted to uppercase with '-' replaced by '_'
 if secret_input:
     print('The secret is yay!!')
 else:
