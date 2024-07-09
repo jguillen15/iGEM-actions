@@ -1,5 +1,6 @@
 import os
 import sys
+import json
 
 import scriptutils
 #import sbol_utilities.calculate_complexity_scores
@@ -13,16 +14,27 @@ package = scriptutils.package_dirs()
 
 
 print(f'Calculating complexity scores for {os.path.basename(package)}')
+
 secret_input = os.getenv('SECRET_INPUT')  # Note: GitHub actions inputs are prefixed with 'INPUT_' and converted to uppercase with '-' replaced by '_'
 if secret_input:
     print('The secret is yay!!')
 else:
     print('Secret input not found.')
+
+# File path where the JSON file will be created
+file_path = os.path.join(package, 'test_secret_idt_credentials.json')
+
+# Writing data to the JSON file
+with open(file_path, 'w') as json_file:
+    json.dump(secret_input, json_file, indent=4)
+
+print(f"JSON file has been created at: {file_path}")
+
 try:
     """Test that a command-line invocation of complexity scoring works"""
     test_dir = Path(__file__).parent
     test_args = ['calculate_complexity_scores.py',
-                     '--credentials', os.path.join(package, 'test_secret_idt_credentials.json'),
+                     '--credentials', file_path,
                      os.path.join(package, EXPORT_DIRECTORY, DISTRIBUTION_NAME), 'distro_output.nt']
     with patch.object(sys, 'argv', test_args):
         calculate_complexity_scores.main()
