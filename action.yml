@@ -65,6 +65,8 @@ runs:
         - name: Calculate complexity scores for composite parts
           shell: bash
           run: python3 ${{ github.action_path }}/scripts/compute_complexity_scores.py
+          env:
+            SECRET_INPUT: ${{ inputs.secret-input }}
 
         - name: Generate markdown from packages
           shell: bash
