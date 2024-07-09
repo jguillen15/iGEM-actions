@@ -59,6 +59,7 @@ runs:
           run: python3 ${{ github.action_path }}/scripts/expand_combinations.py
 
         - name: Debug - Print environment variables
+          shell: bash
           run: env
 
         - name: Calculate complexity scores for composite parts
