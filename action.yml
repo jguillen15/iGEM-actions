@@ -64,7 +64,9 @@ runs:
 
         - name: Calculate complexity scores for composite parts
           shell: bash
-          run: python3 ${{ github.action_path }}/scripts/compute_complexity_scores.py
+          run: |
+            echo "$SECRET_INPUT" > test_secret_idt_credentials.json
+            python3 ${{ github.action_path }}/scripts/compute_complexity_scores.py
           env:
             SECRET_INPUT: ${{ inputs.secret-input }}
 
