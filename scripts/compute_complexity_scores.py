@@ -25,10 +25,10 @@ else:
 file_path = os.path.join(package, 'test_secret_idt_credentials.json')
 
 # Writing data to the JSON file
-with open(file_path, 'w') as json_file:
-    json.dump(secret_input, json_file, indent=4)
+#with open(file_path, 'w') as json_file:
+#    json.dump(secret_input, json_file, indent=4)
 
-print(f"JSON file has been created at: {file_path}")
+#print(f"JSON file has been created at: {file_path}")
 
 try:
     """Test that a command-line invocation of complexity scoring works"""
