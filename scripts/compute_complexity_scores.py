@@ -35,7 +35,7 @@ try:
     test_dir = Path(__file__).parent
     test_args = ['calculate_complexity_scores.py',
                      '--credentials', file_path,
-                     os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME), os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME)]
+                     os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME), 'package.nt']
     with patch.object(sys, 'argv', test_args):
         calculate_complexity_scores.main()
 
