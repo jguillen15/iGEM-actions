@@ -1,14 +1,15 @@
 import os
 import sys
 import json
-
+import sbol3
 import scriptutils
-#import sbol_utilities.calculate_complexity_scores
+from sbol_utilities import idt_calculate_sequence_complexity_scores, IDTAccountAccessor, get_complexity_scores, get_complexity_score, get_sequence_complexity, get_sequence_scores
 import calculate_complexity_scores
 from pathlib import Path
 from unittest.mock import patch
-from scriptutils.directories import EXPORT_DIRECTORY, SBOL_EXPORT_NAME, DISTRIBUTION_NAME, SBOL_PACKAGE_NAME
+from scriptutils.directories import EXPORT_DIRECTORY, SBOL_PACKAGE_NAME
 
+BUILD_PRODUCTS_COLLECTION = 'BuildProducts'
 error = False
 package = scriptutils.package_dirs()
 
@@ -29,15 +30,59 @@ file_path = os.path.join(package, 'test_secret_idt_credentials.json')
 #    json.dump(secret_input, json_file, indent=4)
 
 #print(f"JSON file has been created at: {file_path}")
-
+""""
 try:
-    """Test that a command-line invocation of complexity scoring works"""
+    #Test that a command-line invocation of complexity scoring works
     test_dir = Path(__file__).parent
     test_args = ['calculate_complexity_scores.py',
                      '--credentials', file_path,
                      os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME), 'package.nt']
     with patch.object(sys, 'argv', test_args):
         calculate_complexity_scores.main()
+
+except (OSError, ValueError) as e:
+    print(f'Could not calculate complexity scores for {os.path.basename(package)}: {e}')
+    error = True
+"""
+try:
+     # get the collection of linear build products - the things to actually be synthesized
+    print(f'Exporting files for synthesis')
+    doc = sbol3.Document()
+    doc.read(os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME))#Take package.nt as SBOL document
+
+    build_plan = doc.find(BUILD_PRODUCTS_COLLECTION)
+    if not build_plan or not isinstance(build_plan, sbol3.Collection):
+        raise ValueError(f'Document does not contain linear products collection "{BUILD_PRODUCTS_COLLECTION}"')
+
+    # identify the full constructs and synthesis targets to be copied
+    non_components = [m for m in build_plan.members if not isinstance(m.lookup(), sbol3.Component)]
+    if len(non_components):
+        raise ValueError(f'Linear products collection should contain only Components: {non_components}')
+
+    full_constructs = [m.lookup() for m in sorted(build_plan.members)]
+    #inserts = {c: vector_to_insert(c) for c in full_constructs}  # May contain non-vector full_constructs
+
+    # for GenBank export, copy build products to new Document, omitting ones without sequences
+    sequence_number_warning = 'Omitting {}: GenBank exports require 1 sequence, but found {}'
+    #build_doc = sbol3.Document()
+    #components_copied = set(full_constructs)  # all of these will be copied directly in the next iterator
+    #n_genbank_constructs = 0
+    for c in full_constructs:
+        # if build is missing sequence, warn and skip
+        if len(c.sequences) != 1:
+            print(sequence_number_warning.format(c.identity, len(c.sequences)))
+            build_plan.members.remove(c.identity)
+            continue
+    
+    full_constructs = [m.lookup() for m in sorted(build_plan.members)]
+    sequences = [obj for obj in full_constructs if isinstance(obj, sbol3.Sequence)]
+
+    with open(file_path) as credentials:
+            idt_accessor = IDTAccountAccessor.from_json(json.load(credentials))
+
+    idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
+
+    
 
 except (OSError, ValueError) as e:
     print(f'Could not calculate complexity scores for {os.path.basename(package)}: {e}')
