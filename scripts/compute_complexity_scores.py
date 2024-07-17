@@ -8,6 +8,7 @@ import calculate_complexity_scores
 from pathlib import Path
 from unittest.mock import patch
 from scriptutils.directories import EXPORT_DIRECTORY, SBOL_PACKAGE_NAME
+from scriptutils.helpers import vector_to_insert
 
 BUILD_PRODUCTS_COLLECTION = 'BuildProducts'
 error = False
@@ -63,7 +64,7 @@ try:
     #inserts = {c: vector_to_insert(c) for c in full_constructs}  # May contain non-vector full_constructs
 
     # for GenBank export, copy build products to new Document, omitting ones without sequences
-    sequence_number_warning = 'Omitting {}: GenBank exports require 1 sequence, but found {}'
+    sequence_number_warning = 'Omitting {}: Complexity Scores exports require 1 sequence, but found {}'
     #build_doc = sbol3.Document()
     #components_copied = set(full_constructs)  # all of these will be copied directly in the next iterator
     #n_genbank_constructs = 0
@@ -75,14 +76,16 @@ try:
             continue
     
     full_constructs = [m.lookup() for m in sorted(build_plan.members)]
-    sequences = [obj for obj in full_constructs if isinstance(obj, sbol3.Sequence)]
+    inserts = [vector_to_insert(c) for c in full_constructs]  # May contain non-vector full_constructs
+    print(type(inserts[0]))
+    sequences = [obj for obj in inserts if isinstance(obj, sbol3.Sequence)]
+    print(len(sequences))
 
     with open(file_path) as credentials:
             idt_accessor = IDTAccountAccessor.from_json(json.load(credentials))
 
     idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
 
-    
 
 except (OSError, ValueError) as e:
     print(f'Could not calculate complexity scores for {os.path.basename(package)}: {e}')
