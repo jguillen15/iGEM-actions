@@ -3,7 +3,7 @@ import sys
 import json
 import sbol3
 import scriptutils
-from sbol_utilities import calculate_complexity_scores
+from calculate_complexity_scores import IDTAccountAccessor, idt_calculate_sequence_complexity_scores
 from pathlib import Path
 from unittest.mock import patch
 from scriptutils.directories import EXPORT_DIRECTORY, SBOL_PACKAGE_NAME
@@ -81,9 +81,9 @@ try:
     print(len(sequences))
 
     with open(file_path) as credentials:
-            idt_accessor = calculate_complexity_scores.IDTAccountAccessor.from_json(json.load(credentials))
+            idt_accessor = IDTAccountAccessor.from_json(json.load(credentials))
 
-    calculate_complexity_scores.idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
+    idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
 
 
 except (OSError, ValueError) as e:
