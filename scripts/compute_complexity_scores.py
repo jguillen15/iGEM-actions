@@ -79,7 +79,7 @@ try:
     print(type(inserts[0]))
     sequences = [obj.sequences[0] for obj in inserts if isinstance(obj, sbol3.Component)]
     print(len(sequences))
-
+    print(type(sequences[0]))
     with open(file_path) as credentials:
             idt_accessor = IDTAccountAccessor.from_json(json.load(credentials))
 
