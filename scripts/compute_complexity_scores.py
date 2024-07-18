@@ -1,6 +1,7 @@
 import os
 import sys
 import json
+import logging
 import sbol3
 import scriptutils
 from calculate_complexity_scores import IDTAccountAccessor, idt_calculate_sequence_complexity_scores
@@ -83,8 +84,9 @@ try:
     with open(file_path) as credentials:
             idt_accessor = IDTAccountAccessor.from_json(json.load(credentials))
 
-    idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
-
+    results = idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
+    doc.write(os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME))
+    logging.info('SBOL file written to %s with %i new scores calculated', "package.nt", len(results))
 
 except (OSError, ValueError) as e:
     print(f'Could not calculate complexity scores for {os.path.basename(package)}: {e}')
