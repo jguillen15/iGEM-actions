@@ -85,8 +85,8 @@ try:
             idt_accessor = IDTAccountAccessor.from_json(json.load(credentials))
 
     results = idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
-    doc.write(os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME))
-    logging.info('SBOL file written to %s with %i new scores calculated', "package.nt", len(results))
+    #doc.write(os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME))
+    #logging.info('SBOL file written to %s with %i new scores calculated', "package.nt", len(results))
 
 except (OSError, ValueError) as e:
     print(f'Could not calculate complexity scores for {os.path.basename(package)}: {e}')
