@@ -77,7 +77,7 @@ try:
     full_constructs = [m.lookup() for m in sorted(build_plan.members)]
     inserts = [vector_to_insert(c) for c in full_constructs]  # May contain non-vector full_constructs
     print(type(inserts[0]))
-    sequences = [obj.sequences[0] for obj in inserts if isinstance(obj, sbol3.Component)]
+    sequences = [obj.sequences[0].lookup() for obj in inserts if isinstance(obj, sbol3.Component)]
     print(len(sequences))
     print(type(sequences[0]))
     with open(file_path) as credentials:
