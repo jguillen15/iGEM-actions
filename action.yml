@@ -74,6 +74,20 @@ runs:
           shell: bash
           run: python3 ${{ github.action_path }}/scripts/generate_markdown.py
 
+        - name: Commit changes, ready to push 0
+          shell: bash
+          run: |
+            git config --local user.email "action@github.com"
+            git config --local user.name "GitHub Action"
+            git add *.nt *.md *.fasta *.gb README.md
+            git add views/*
+            git diff-index --quiet HEAD . || git commit -m "Automatically update exports 0"
+        - name: Push changes 0
+          uses: ad-m/github-push-action@master
+          with:
+            github_token: repo-token
+            branch: ${{ github.ref }}
+
         - name: Build distribution
           shell: bash
           run: python3 ${{ github.action_path }}/scripts/build_distribution.py
