@@ -248,9 +248,9 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
         print("-------------------------Guide----------------------------")
         
         
-        print(type(c.sequences[0].lookup().measure))
-        print(type(c.sequences.measure))
-        print(type(c.sequences[0].measure))
+        print(type(c.sequences[0].lookup().measures))
+        print(type(c.sequences.measures))
+        print(type(c.sequences[0].measures))
         if len(c.sequences.measures) != 0:
 
             #print(sequence_number_warning.format(c.identity, len(c.sequences)))
