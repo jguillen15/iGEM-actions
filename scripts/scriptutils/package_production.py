@@ -249,9 +249,9 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
         
         
         print(type(c.sequences[0].lookup().measures))
-        print(type(c.sequences.measures))
-        print(type(c.sequences[0].measures))
-        if len(c.sequences.measures) != 0:
+        #print(type(c.sequences.measures))
+        #print(type(c.sequences[0].measures))
+        if len(c.sequences[0].lookup().measures) != 0:
 
             #print(sequence_number_warning.format(c.identity, len(c.sequences)))
             build_plan.members.remove(c.identity)
