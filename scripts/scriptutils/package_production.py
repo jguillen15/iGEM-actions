@@ -244,6 +244,14 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
             print(sequence_number_warning.format(c.identity, len(c.sequences)))
             build_plan.members.remove(c.identity)
             continue
+##############################Filter measures#####################################################
+        if len(c.sequences.measure) != 0:
+            print(type(c.sequences.measure))
+            #print(sequence_number_warning.format(c.identity, len(c.sequences)))
+            build_plan.members.remove(c.identity)
+            continue
+        
+##################################################################################################
         c.copy(build_doc)
         c.sequences[0].lookup().copy(build_doc)
         n_genbank_constructs += 1
