@@ -180,7 +180,7 @@ def idt_calculate_sequence_complexity_scores(accessor: IDTAccountAccessor, seque
     for sequence, score in score_dictionary.items():
         measure = sbol3.Measure(score, unit=tyto.OM.number_unit, types=[tyto.EDAM.sequence_complexity_report])
         measure.generated_by.append(report_generation)
-        sequence.measures.append(measure)
+        #sequence.measures.append(measure)
     # return the dictionary of newly computed scores
     return score_dictionary
 
