@@ -250,7 +250,8 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
         
         
         print(type(c.sequences[0].lookup().measures))
-        print(c.sequences[0].lookup().measures)
+        print(c.sequences.identity)
+        print(c.sequences[0].lookup().identity)
         #print(type(c.sequences.measures))
         #print(type(c.sequences[0].measures))
 
