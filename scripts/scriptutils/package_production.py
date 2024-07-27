@@ -238,6 +238,7 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
     build_doc = sbol3.Document()
     components_copied = set(full_constructs)  # all of these will be copied directly in the next iterator
     n_genbank_constructs = 0
+    print(doc)
     for c in full_constructs:
         # if build is missing sequence, warn and skip
         if len(c.sequences) != 1:
@@ -281,6 +282,7 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
                 sub.sequences[0].lookup().copy(build_doc)
     # copy over final build plan, which omits the missing sequences
     build_plan.copy(build_doc)  # TODO: decide if we want to bring this back at some point; it is unneeded
+    print(build_doc)
     # make sure that the file is valid
     report = build_doc.validate()
     if len(report):
