@@ -177,10 +177,13 @@ def idt_calculate_sequence_complexity_scores(accessor: IDTAccountAccessor, seque
     doc.add(report_generation)
 
     # Mark the sequences with their scores, where each score is a dimensionless measure
+    cont = 0
     for sequence, score in score_dictionary.items():
-        measure = sbol3.Measure(score, unit=tyto.OM.number_unit, types=[tyto.EDAM.sequence_complexity_report])
+        name_measure = "Measure"+str(cont)
+        measure = sbol3.Measure(score, unit=tyto.OM.number_unit, name=name_measure, types=[tyto.EDAM.sequence_complexity_report])
         measure.generated_by.append(report_generation)
         sequence.measures.append(measure)
+        cont = cont + 1
     # return the dictionary of newly computed scores
     return score_dictionary
 
