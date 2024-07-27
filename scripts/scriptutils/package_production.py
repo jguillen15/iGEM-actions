@@ -222,6 +222,10 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
     # get the collection of linear build products - the things to actually be synthesized
     print(f'Exporting files for synthesis')
     build_plan = doc.find(BUILD_PRODUCTS_COLLECTION)
+    measures = doc.find("Measure1")
+    print(measures)
+    print(len(measures))
+    print(type(measures))
     if not build_plan or not isinstance(build_plan, sbol3.Collection):
         raise ValueError(f'Document does not contain linear products collection "{BUILD_PRODUCTS_COLLECTION}"')
 
