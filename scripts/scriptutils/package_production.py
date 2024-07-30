@@ -222,12 +222,12 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
     # get the collection of linear build products - the things to actually be synthesized
     print(f'Exporting files for synthesis')
     build_plan = doc.find(BUILD_PRODUCTS_COLLECTION)
-    measures = doc.find("Measure2")
-    print(measures)
-    print(type(measures))
-    discard = [m.lookup() for m in measures]
-    for k in discard:
-        print(k.identity)
+    #measures = doc.find("Measure1")
+    #print(measures)
+    #print(type(measures))
+    #discard = [m.lookup() for m in measures]
+    #for k in discard:
+    #    print(k.identity)
 
     if not build_plan or not isinstance(build_plan, sbol3.Collection):
         raise ValueError(f'Document does not contain linear products collection "{BUILD_PRODUCTS_COLLECTION}"')
@@ -252,23 +252,6 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
             print(sequence_number_warning.format(c.identity, len(c.sequences)))
             build_plan.members.remove(c.identity)
             continue
-##############################Filter measures#####################################################
-        print("-------------------------Guide----------------------------")
-        
-        
-        print(type(c.sequences[0].lookup().measures))
-        #print(c.sequences.identity)
-        print(c.sequences[0].lookup().identity)
-        #print(type(c.sequences.measures))
-        #print(type(c.sequences[0].measures))
-
-        if len(c.sequences[0].lookup().measures) != 0:
-
-            #print(sequence_number_warning.format(c.identity, len(c.sequences)))
-            build_plan.members.remove(c.identity)
-            continue
-        
-##################################################################################################
         c.copy(build_doc)
         c.sequences[0].lookup().copy(build_doc)
         n_genbank_constructs += 1
@@ -290,7 +273,7 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
                 sub.sequences[0].lookup().copy(build_doc)
     # copy over final build plan, which omits the missing sequences
     build_plan.copy(build_doc)  # TODO: decide if we want to bring this back at some point; it is unneeded
-    print(build_doc)
+    #print(build_doc)
     # make sure that the file is valid
     report = build_doc.validate()
     if len(report):
