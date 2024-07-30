@@ -179,8 +179,15 @@ def idt_calculate_sequence_complexity_scores(accessor: IDTAccountAccessor, seque
     # Mark the sequences with their scores, where each score is a dimensionless measure
     cont = 0
     for sequence, score in score_dictionary.items():
-        name_measure = "Measure"+str(cont)
-        measure = sbol3.Measure(score, unit=tyto.OM.number_unit, name=name_measure, types=[tyto.EDAM.sequence_complexity_report])
+        if len(sequence.elements)<125 or len(sequence.elements)>3000:
+            description = "Not synthesizable"
+        elif score >= 10:
+            description = "Not synthesizable"
+        else:
+            description = "Synthesizable"
+        print(f"The DNA sequence {sequence.name} is {description}.")
+        
+        measure = sbol3.Measure(score, unit=tyto.OM.number_unit, description=description, types=[tyto.EDAM.sequence_complexity_report])
         measure.generated_by.append(report_generation)
         sequence.measures.append(measure)
         cont = cont + 1
