@@ -185,7 +185,7 @@ def idt_calculate_sequence_complexity_scores(accessor: IDTAccountAccessor, seque
             description = "Not synthesizable"
         else:
             description = "Synthesizable"
-        print(f"The DNA sequence {sequence.name} is {description}.")
+        print(f"The DNA sequence {sequence.display_id} is {description}.")
         
         measure = sbol3.Measure(score, unit=tyto.OM.number_unit, description=description, types=[tyto.EDAM.sequence_complexity_report])
         measure.generated_by.append(report_generation)
