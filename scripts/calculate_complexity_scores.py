@@ -97,6 +97,7 @@ class IDTAccountAccessor:
                 raise ValueError(f'Unexpected complexity score: expected {len(partition)} scores, '
                                  f'but got {len(response_list)}')
             results.append(resp.json())
+            print(response_list)
         logging.info('Requests to IDT API finished.')
         return results
 
