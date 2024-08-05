@@ -101,7 +101,8 @@ class IDTAccountAccessor:
         logging.info('Requests to IDT API finished.')
         return results
 
-    def get_sequence_complexity(self, sequences: list[sbol3.Sequence]) -> dict[sbol3.Sequence, float]:
+    def get_sequence_complexity(self, sequences: list[sbol3.Sequence]):
+        #get_sequence_complexity(self, sequences: list[sbol3.Sequence]) -> dict[sbol3.Sequence, float]:
         """ Extract complexity scores from IDT API for a list of SBOL Sequence objects
         This works by computing full sequence evaluations, then compressing down to a single score for each sequence.
 
@@ -112,12 +113,18 @@ class IDTAccountAccessor:
         scores = self.get_sequence_scores(sequences)
         # Compute total score for each sequence as the sum all complexity scores for the sequence
         score_list = []
+        description_list = []
+        complexity_description = ""
         for score_set in scores:
             for sequence_scores in score_set:
                 complexity_score = sum(score.get('Score') for score in sequence_scores)
                 score_list.append(complexity_score)
+                #complexity_description = [description.get('DisplayText') for description in sequence_scores]
+                for description in sequence_scores:
+                    complexity_description = complexity_description + description.get('DisplayText')
+                description_list.append(complexity_description)
         # Associate each sequence to its score
-        return dict(zip(sequences, score_list))
+        return dict(zip(sequences, score_list)), description_list
 
 
 def get_complexity_score(seq: sbol3.Sequence) -> Optional[float]:
@@ -167,7 +174,7 @@ def idt_calculate_sequence_complexity_scores(accessor: IDTAccountAccessor, seque
         return dict()
 
     # Query for the scores of the sequences
-    score_dictionary = accessor.get_sequence_complexity(need_scores)
+    score_dictionary, description_list = accessor.get_sequence_complexity(need_scores)
 
     # Create report generation activity
     doc = need_scores[0].document
@@ -181,11 +188,11 @@ def idt_calculate_sequence_complexity_scores(accessor: IDTAccountAccessor, seque
     cont = 0
     for sequence, score in score_dictionary.items():
         if len(sequence.elements)<125 or len(sequence.elements)>3000:
-            description = "Not synthesizable"
+            description = "Not synthesizable. Sequence must be between 125 bp and 3000 bp."
         elif score >= 10:
-            description = "Not synthesizable"
+            description = "Not synthesizable." + description_list[cont]
         else:
-            description = "Synthesizable"
+            description = "Synthesizable." + description_list[cont]
         print(f"The DNA sequence {sequence.display_id} is {description}.")
         
         measure = sbol3.Measure(score, unit=tyto.OM.number_unit, description=description, types=[tyto.EDAM.sequence_complexity_report])
