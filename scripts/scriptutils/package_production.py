@@ -239,10 +239,12 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
 
     full_constructs = [m.lookup() for m in sorted(build_plan.members)]
     inserts = {c: vector_to_insert(c) for c in full_constructs}  # May contain non-vector full_constructs
+
     for vector, insert in inserts.items():
         if len(insert.sequences) != 1:
             print(sequence_number_warning.format(insert.identity, len(insert.sequences)))
         print(insert.sequences[0].lookup().measures)
+        print(insert.sequences[0].lookup().measures.description)
         insert.sequences[0].lookup().measures = []    
 
     # for GenBank export, copy build products to new Document, omitting ones without sequences
