@@ -7,7 +7,7 @@ import sbol_utilities.excel_to_sbol
 from sbol_utilities.helper_functions import is_plasmid
 from sbol_utilities.workarounds import id_sort
 from sbol_utilities.component import contained_components
-from .helpers import has_SO_uri
+from .helpers import has_SO_uri, vector_to_insert
 from .package_production import BUILD_PRODUCTS_COLLECTION
 
 SUMMARY_FILE = 'README.md'
@@ -37,7 +37,16 @@ def generate_package_summary(package: str, doc: sbol3.Document):
     if not isinstance(build_plan, sbol3.Collection):
         raise ValueError(f'Could not find build plan in package {package}')
 
-    # compute all desired statistics
+    # Store complexity score measure description
+    full_constructs = [m.lookup() for m in sorted(build_plan.members)]
+    inserts = {c: vector_to_insert(c) for c in full_constructs}  # May contain non-vector full_constructs
+    descriptions = []
+    for vector, insert in inserts.items():
+        uri = insert.identity + "_sequence/Measure1"
+        measure_uri = doc.find(uri)
+        descriptions.append(measure_uri.description)
+
+    # Compute all desired statistics
     parts_used = contained_components(build_plan)
     ids_of_parts_used = {c.identity for c in parts_used}
     unused_parts = {str(m) for m in parts_list.members} - ids_of_parts_used
@@ -113,6 +122,11 @@ def generate_package_summary(package: str, doc: sbol3.Document):
             if p.identity in unused_parts:
                 f.write(hilite(f'not included in distribution'))
             f.write('\n')
+            
+        # Complexity score descriptions
+        for k in descriptions:
+            f.write(k)
+
         f.write('\n')  # section break
 
         # add warning at the bottom
