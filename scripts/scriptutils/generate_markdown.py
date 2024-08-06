@@ -110,22 +110,29 @@ def generate_package_summary(package: str, doc: sbol3.Document):
         for p in id_sort(non_vector_parts):
             # id / name
             f.write(f'- {p.display_id}')
+            print("Hi1")
             if p.name and sbol3.string_to_display_id(p.name) != p.display_id:
                 f.write(f': {p.name}')
+                print("Hi2")
             # roles
             if so_roles.get(p.identity, None):
                 f.write(f' ({", ".join(sorted(so_roles[p.identity]))})')
+                print("Hi3")
             if p in insert_vectors:
                 f.write(f' in {", ".join(sorted(insert_vectors[p]))}')
+                print("Hi4")
             if p.identity in missing_seq:
                 f.write(hilite(f'missing sequence, ensure file name matches Data Source ID from Excel File'))
+                print("Hi5")
             if p.identity in unused_parts:
                 f.write(hilite(f'not included in distribution'))
+                print("Hi6")
             f.write('\n')
-            
+
         # Complexity score descriptions
         for k in descriptions:
             f.write(k)
+            f.write('\n')
 
         f.write('\n')  # section break
 
