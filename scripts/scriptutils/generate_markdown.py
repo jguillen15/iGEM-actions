@@ -107,6 +107,7 @@ def generate_package_summary(package: str, doc: sbol3.Document):
 
         # Finally, a list of all the parts and their UIDs
         f.write(f'### Parts:\n\n')
+        cont = 0
         for p in id_sort(non_vector_parts):
             # id / name
             f.write(f'- {p.display_id}')
@@ -116,21 +117,22 @@ def generate_package_summary(package: str, doc: sbol3.Document):
             # roles
             if so_roles.get(p.identity, None):
                 f.write(f' ({", ".join(sorted(so_roles[p.identity]))})')
-                print(so_roles[p.identity])
+                print(so_roles[p.identity]) #['ribosome_entry_site'], ['designed_sequence']
             if p in insert_vectors:
                 f.write(f' in {", ".join(sorted(insert_vectors[p]))}')
-                print(insert_vectors[p])
+            if so_roles[p.identity] != ['designed_sequence']:
+                f.write(f' : {descriptions[cont]}')
+                cont += 1
             if p.identity in missing_seq:
                 f.write(hilite(f'missing sequence, ensure file name matches Data Source ID from Excel File'))
             if p.identity in unused_parts:
                 f.write(hilite(f'not included in distribution'))
             f.write('\n')
-        f.write('\n')
+
         # Complexity score descriptions
-        print(len(descriptions))
-        for k in descriptions:
-            f.write(k)
-            f.write('\n')
+        #for k in descriptions:
+        #    f.write(k)
+        #    f.write('\n')
 
         f.write('\n')  # section break
 
