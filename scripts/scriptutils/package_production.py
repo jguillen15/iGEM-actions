@@ -244,10 +244,10 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
     for vector, insert in inserts.items():
         if len(insert.sequences) != 1:
             print(sequence_number_warning.format(insert.identity, len(insert.sequences)))
-        print(insert.identity)
-        uri = insert.identity + "_sequence/Measure1"
-        measures_des = doc.find(uri)
-        print(measures_des.description)
+        #print(insert.identity)
+        #uri = insert.identity + "_sequence/Measure1"
+        #measures_des = doc.find(uri)
+        #print(measures_des.description)
         #print(insert.sequences[0].lookup().measures)
         #print(type(insert.sequences[0].lookup().measures))
         insert.sequences[0].lookup().measures = []    
