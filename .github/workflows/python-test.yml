@@ -1,7 +1,13 @@
 name: Script regression testing
 
 on:
-  [push, pull_request, workflow_dispatch]
+  push:
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      secret-input:
+        description: 'A secret input'
+        required: true
 
 jobs:
   build:
@@ -21,4 +27,5 @@ jobs:
         pip install -r scripts/requirements.txt
     - name: Test with pytest
       run: |
+        echo "$SECRET_INPUT" > test_secret_idt_credentials.json
         PYTHONPATH=. pytest

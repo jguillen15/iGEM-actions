@@ -8,19 +8,34 @@ import tempfile
 import sbol3
 from unittest.mock import patch
 import scripts
+import scriptutils
 from scripts.calculate_complexity_scores import IDTAccountAccessor, idt_calculate_complexity_scores, \
     idt_calculate_sequence_complexity_scores, get_complexity_scores
 import sbol_utilities.sbol_diff
 
+package = scriptutils.package_dirs()
 
 class TestIDTCalculateComplexityScore(unittest.TestCase):
 
     @unittest.skipIf(sys.platform == 'win32', reason='Not working on Windows https://github.com/SynBioDex/SBOL-utilities/issues/221')
     def test_IDT_calculate_complexity_score(self):
         """Test that a library-call invocation of complexity scoring works"""
+
+        secret_input = os.getenv('SECRET_INPUT')  # Note: GitHub actions inputs are prefixed with 'INPUT_' and converted to uppercase with '-' replaced by '_'
+        if secret_input:
+            print(f'The secret is: {secret_input}')
+        else:
+            print('Secret input not found.')
+
+        # File path where the JSON file will be created
+        file_path = os.path.join(package, 'test_secret_idt_credentials.json')
+        with open(file_path) as test_credentials:
+            idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials)) 
+
+
         test_dir = Path(__file__).parent
-        with open(test_dir.parent / 'test_secret_idt_credentials.json') as test_credentials:
-            idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials))
+        #with open(test_dir.parent / 'test_secret_idt_credentials.json') as test_credentials:
+        #    idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials)) 
 
         doc = sbol3.Document()
         doc.read(test_dir / 'test_files' / 'BBa_J23101.nt')
