@@ -5,6 +5,7 @@ import os
 import unittest
 import sys
 import tempfile
+import git
 import sbol3
 from unittest.mock import patch
 import scripts
@@ -28,7 +29,9 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
             print('Secret input not found.')
 
         # File path where the JSON file will be created
-        file_path = os.path.join(package, 'test_secret_idt_credentials.json')
+        root = git.Repo('.', search_parent_directories=True).working_tree_dir
+        file_path = os.path.join(root, 'test_secret_idt_credentials.json')
+        print("Credentials JSON path: ", file_path)
         with open(file_path) as test_credentials:
             idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials)) 
 
