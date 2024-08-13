@@ -29,16 +29,16 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
             print('Secret input not found.')
 
         # File path where the JSON file will be created
-        """root = git.Repo('.', search_parent_directories=True).working_tree_dir
+        root = git.Repo('.', search_parent_directories=True).working_tree_dir
         file_path = os.path.join(root, 'test_secret_idt_credentials.json')
         print("Credentials JSON path: ", file_path)
         with open(file_path) as test_credentials:
-            idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials)) """
+            idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials))
 
 
-        test_dir = Path(__file__).parent
+        """test_dir = Path(__file__).parent
         with open(test_dir.parent / 'test_secret_idt_credentials.json') as test_credentials:
-            idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials)) 
+            idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials)) """
 
         doc = sbol3.Document()
         doc.read(test_dir / 'test_files' / 'BBa_J23101.nt')
