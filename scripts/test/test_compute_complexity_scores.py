@@ -7,7 +7,8 @@ import sys
 import tempfile
 import sbol3
 from unittest.mock import patch
-from calculate_complexity_scores import IDTAccountAccessor, idt_calculate_complexity_scores, \
+import scripts
+from scripts.calculate_complexity_scores import IDTAccountAccessor, idt_calculate_complexity_scores, \
     idt_calculate_sequence_complexity_scores, get_complexity_scores
 import sbol_utilities.sbol_diff
 

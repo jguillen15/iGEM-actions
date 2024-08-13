@@ -1,7 +1,6 @@
 import os
 import sys
 import json
-import logging
 import sbol3
 import scriptutils
 from calculate_complexity_scores import IDTAccountAccessor, idt_calculate_sequence_complexity_scores
