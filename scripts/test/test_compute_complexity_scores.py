@@ -8,12 +8,12 @@ import tempfile
 import sbol3
 from unittest.mock import patch
 import scripts
-import scriptutils
+import scripts.scriptutils
 from scripts.calculate_complexity_scores import IDTAccountAccessor, idt_calculate_complexity_scores, \
     idt_calculate_sequence_complexity_scores, get_complexity_scores
 import sbol_utilities.sbol_diff
 
-package = scriptutils.package_dirs()
+package = scripts.scriptutils.package_dirs()
 
 class TestIDTCalculateComplexityScore(unittest.TestCase):
 
