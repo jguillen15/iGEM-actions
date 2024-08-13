@@ -42,7 +42,7 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
 
         doc = sbol3.Document()
         #doc.read(root / 'test_files' / 'BBa_J23101.nt')
-        doc.read(os.path.join(root, 'test_files', 'BBa_J23101.nt'))
+        doc.read(os.path.join(root, 'test', 'test_files', 'BBa_J23101.nt'))
 
         # Check the scores - they should initially be all missing
         sequences = [obj for obj in doc if isinstance(obj, sbol3.Sequence)]
