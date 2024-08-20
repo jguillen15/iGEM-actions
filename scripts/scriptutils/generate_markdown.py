@@ -46,6 +46,8 @@ def generate_package_summary(package: str, doc: sbol3.Document):
         measure_uri = doc.find(uri)
         if measure_uri != None:
             descriptions.append(measure_uri.description)
+        else:
+            descriptions.append("")
 
     # Compute all desired statistics
     parts_used = contained_components(build_plan)
@@ -112,7 +114,6 @@ def generate_package_summary(package: str, doc: sbol3.Document):
         for p in id_sort(non_vector_parts):
             # id / name
             f.write(f'- {p.display_id}')
-            print("Hi1")
             if p.name and sbol3.string_to_display_id(p.name) != p.display_id:
                 f.write(f': {p.name}')
             # roles
