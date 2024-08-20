@@ -119,7 +119,7 @@ def generate_package_summary(package: str, doc: sbol3.Document):
             # roles
             if so_roles.get(p.identity, None):
                 f.write(f' ({", ".join(sorted(so_roles[p.identity]))})')
-                print(so_roles[p.identity]) #['ribosome_entry_site'], ['designed_sequence']
+                #print(so_roles[p.identity]) #['ribosome_entry_site'], ['designed_sequence']
             if p in insert_vectors:
                 f.write(f' in {", ".join(sorted(insert_vectors[p]))}')
             if so_roles[p.identity] != ['designed_sequence']:
