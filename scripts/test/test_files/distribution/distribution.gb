@@ -335,8 +335,8 @@ FEATURES             Location/Qualifiers
                      /label="pSB1C3"
      source          1..3242
                      /collection_date="20-Jan-2012"
-                     /country="USA"
                      /db_xref="taxon:562"
+                     /geo_loc_name="USA"
                      /isolation_source="Farm"
                      /mol_type="genomic DNA"
                      /organism="Escherichia coli"

@@ -57,7 +57,7 @@ FEATURES             Location/Qualifiers
                      /strain="CVM N37069PS"
                      /isolation_source="Farm"
                      /db_xref="taxon:562"
-                     /country="USA"
+                     /geo_loc_name="USA"
                      /collection_date="20-Jan-2012"
      gene            complement(<1..115)
                      /locus_tag="PU64_23660"
