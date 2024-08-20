@@ -107,7 +107,7 @@ class IDTAccountAccessor:
         This works by computing full sequence evaluations, then compressing down to a single score for each sequence.
 
         :param sequences: list of SBOL Sequences to evaluate
-        :return: dictionary mapping sequences to complexity Scores
+        :return: dictionary mapping sequences to complexity Scores and description of sequences list
         """
         # Retrieve full evaluations for sequences
         scores = self.get_sequence_scores(sequences)
@@ -119,7 +119,7 @@ class IDTAccountAccessor:
             for sequence_scores in score_set:
                 complexity_score = sum(score.get('Score') for score in sequence_scores)
                 score_list.append(complexity_score)
-                #complexity_description = [description.get('DisplayText') for description in sequence_scores]
+                #complexity_description
                 for description in sequence_scores:
                     complexity_description = complexity_description + description.get('DisplayText')
                 description_list.append(complexity_description)
