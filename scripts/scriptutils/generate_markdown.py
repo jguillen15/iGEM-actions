@@ -44,7 +44,8 @@ def generate_package_summary(package: str, doc: sbol3.Document):
     for vector, insert in inserts.items():
         uri = insert.identity + "_sequence/Measure1"
         measure_uri = doc.find(uri)
-        descriptions.append(measure_uri.description)
+        if measure_uri != None:
+            descriptions.append(measure_uri.description)
 
     # Compute all desired statistics
     parts_used = contained_components(build_plan)
@@ -128,11 +129,6 @@ def generate_package_summary(package: str, doc: sbol3.Document):
             if p.identity in unused_parts:
                 f.write(hilite(f'not included in distribution'))
             f.write('\n')
-
-        # Complexity score descriptions
-        #for k in descriptions:
-        #    f.write(k)
-        #    f.write('\n')
 
         f.write('\n')  # section break
 

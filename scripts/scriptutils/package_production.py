@@ -223,12 +223,6 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
     print(f'Exporting files for synthesis')
     build_plan = doc.find(BUILD_PRODUCTS_COLLECTION)
     measures = doc.find("Measure1")
-    #print(measures)
-    #print(type(measures))
-    #print(measures.description)
-    #discard = [m.lookup() for m in measures]
-    #for k in discard:
-    #    print(k.identity)
 
     if not build_plan or not isinstance(build_plan, sbol3.Collection):
         raise ValueError(f'Document does not contain linear products collection "{BUILD_PRODUCTS_COLLECTION}"')
@@ -245,12 +239,7 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
     for vector, insert in inserts.items():
         if len(insert.sequences) != 1:
             print(sequence_number_warning.format(insert.identity, len(insert.sequences)))
-        #print(insert.identity)
-        #uri = insert.identity + "_sequence/Measure1"
-        #measures_des = doc.find(uri)
-        #print(measures_des.description)
-        #print(insert.sequences[0].lookup().measures)
-        #print(type(insert.sequences[0].lookup().measures))
+
         insert.sequences[0].lookup().measures = []    
 
     # for GenBank export, copy build products to new Document, omitting ones without sequences

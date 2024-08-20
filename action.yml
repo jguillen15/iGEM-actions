@@ -1,8 +1,8 @@
 name: generate-distribution
-description: A Github action to generate a distribution from user-readable files 
+description: A GitHub action to generate a distribution from user-readable files 
 inputs:
   repo-token:
-    description: The github token used to mange commiting and push
+    description: The GitHub Token used to manage commiting and push
     required: true
     default: ${{ github.token }}
   secret-input:
