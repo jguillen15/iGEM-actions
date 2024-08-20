@@ -42,7 +42,7 @@ class TestImportParts(unittest.TestCase):
         # first round of import should obtain all but two missing parts
         retrieved = part_retrieval.import_parts(tmp_sub)
         assert len(retrieved) == 5
-        expected = ['https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115', 'http://parts.igem.org/BBa_J364007',
+        expected = ['https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115_1', 'http://parts.igem.org/BBa_J364007',
                     'http://parts.igem.org/J23100', 'http://parts.igem.org/J23102', 'http://parts.igem.org/pSB1C3']
         assert retrieved == expected, f'Retrieved parts list does not match expected value: {retrieved}'
         test_dir = os.path.dirname(os.path.realpath(__file__))
@@ -72,7 +72,7 @@ class TestImportParts(unittest.TestCase):
         # assert len(retrieved) == 7  # all but the local file and LCP SynBioHub
         github_prefix = ('https://raw.githubusercontent.com/'
                          'iGEM-Engineering/iGEM-distribution/develop/scripts/test/test_files')
-        expected = ['https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115',  # NCBI
+        expected = ['https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115_1',  # NCBI
                     'http://parts.igem.org/BBa_J364007',  # iGEM FASTA
                     'http://parts.igem.org/J23100',  # iGEM SynBioHub
                     'http://sevahub.es/public/Canonical/cd_OriT',  # SEVA
