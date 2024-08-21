@@ -606,7 +606,7 @@
 <https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115/annotation0/range> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://sbols.org/v3#Range> .
 <https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115/annotation0> <http://purl.org/dc/terms/title> "Escherichia coli" .
 <https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115/annotation0> <http://sbols.org/genBankConversion#collection_date> "20-Jan-2012" .
-<https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115/annotation0> <http://sbols.org/genBankConversion#country> "USA" .
+<https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115/annotation0> <http://sbols.org/genBankConversion#geo_loc_name> "USA" .
 <https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115/annotation0> <http://sbols.org/genBankConversion#db_xref> "taxon:562" .
 <https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115/annotation0> <http://sbols.org/genBankConversion#isolation_source> "Farm" .
 <https://www.ncbi.nlm.nih.gov/nuccore/JWYZ01000115/annotation0> <http://sbols.org/genBankConversion#mol_type> "genomic DNA" .
