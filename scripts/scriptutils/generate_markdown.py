@@ -122,7 +122,7 @@ def generate_package_summary(package: str, doc: sbol3.Document):
                 #print(so_roles[p.identity]) #['ribosome_entry_site'], ['designed_sequence']
             if p in insert_vectors:
                 f.write(f' in {", ".join(sorted(insert_vectors[p]))}')
-            if so_roles[p.identity] != ['designed_sequence']:
+            if so_roles[p.identity] != ['designed_sequence'] and descriptions[cont] != "":
                 f.write(f' : {descriptions[cont]}')
                 cont += 1
             if p.identity in missing_seq:
