@@ -7,7 +7,7 @@ import sbol_utilities.excel_to_sbol
 from sbol_utilities.helper_functions import is_plasmid
 from sbol_utilities.workarounds import id_sort
 from sbol_utilities.component import contained_components
-from .helpers import has_SO_uri
+from .helpers import has_SO_uri, vector_to_insert
 from .package_production import BUILD_PRODUCTS_COLLECTION
 
 SUMMARY_FILE = 'README.md'
@@ -37,7 +37,19 @@ def generate_package_summary(package: str, doc: sbol3.Document):
     if not isinstance(build_plan, sbol3.Collection):
         raise ValueError(f'Could not find build plan in package {package}')
 
-    # compute all desired statistics
+    # Store complexity score measure description
+    full_constructs = [m.lookup() for m in sorted(build_plan.members)]
+    inserts = {c: vector_to_insert(c) for c in full_constructs}  # May contain non-vector full_constructs
+    descriptions = []
+    for vector, insert in inserts.items():
+        uri = insert.identity + "_sequence/Measure1"
+        measure_uri = doc.find(uri)
+        if measure_uri != None:
+            descriptions.append(measure_uri.description)
+        else:
+            descriptions.append("")
+
+    # Compute all desired statistics
     parts_used = contained_components(build_plan)
     ids_of_parts_used = {c.identity for c in parts_used}
     unused_parts = {str(m) for m in parts_list.members} - ids_of_parts_used
@@ -98,6 +110,7 @@ def generate_package_summary(package: str, doc: sbol3.Document):
 
         # Finally, a list of all the parts and their UIDs
         f.write(f'### Parts:\n\n')
+        cont = 0
         for p in id_sort(non_vector_parts):
             # id / name
             f.write(f'- {p.display_id}')
@@ -106,13 +119,18 @@ def generate_package_summary(package: str, doc: sbol3.Document):
             # roles
             if so_roles.get(p.identity, None):
                 f.write(f' ({", ".join(sorted(so_roles[p.identity]))})')
+                #print(so_roles[p.identity]) #['ribosome_entry_site'], ['designed_sequence']
             if p in insert_vectors:
                 f.write(f' in {", ".join(sorted(insert_vectors[p]))}')
+            if so_roles[p.identity] != ['designed_sequence']:
+                f.write(f' : {descriptions[cont]}')
+                cont += 1
             if p.identity in missing_seq:
                 f.write(hilite(f'missing sequence, ensure file name matches Data Source ID from Excel File'))
             if p.identity in unused_parts:
                 f.write(hilite(f'not included in distribution'))
             f.write('\n')
+
         f.write('\n')  # section break
 
         # add warning at the bottom
