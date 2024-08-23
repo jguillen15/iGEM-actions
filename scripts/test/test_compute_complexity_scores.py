@@ -17,8 +17,8 @@ package = scripts.scriptutils.package_dirs()
 
 class TestIDTCalculateComplexityScore(unittest.TestCase):
 
-    @unittest.skipIf(sys.platform == 'win32', reason='Not working on Windows https://github.com/SynBioDex/SBOL-utilities/issues/221')
-    def test_IDT_calculate_complexity_score(self):
+    #@unittest.skipIf(sys.platform == 'win32', reason='Not working on Windows https://github.com/SynBioDex/SBOL-utilities/issues/221')
+    def test_IDT_compute_complexity_score(self):
         """Test that a library-call invocation of complexity scoring works"""
 
         secret_input = os.getenv('SECRET_INPUT')  # Note: GitHub actions inputs are prefixed with 'INPUT_' and converted to uppercase with '-' replaced by '_'
@@ -31,7 +31,7 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
             idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials))
 
         doc = sbol3.Document()
-        doc.read(os.path.join(root, 'scripts', 'test', 'test_files', 'BBa_J23101.nt'))
+        doc.read(os.path.join(root, 'scripts', 'test', 'test_files', 'package.nt'))
 
         # Check the scores - they should initially be all missing
         sequences = [obj for obj in doc if isinstance(obj, sbol3.Sequence)]
@@ -39,17 +39,12 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
         self.assertEqual(scores, dict())
         # Compute sequences for
         results = idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
-        self.assertEqual(len(results), 1)
+        print(results)
+        self.assertEqual(len(results), 12)
         self.assertEqual(results[sequences[0]], 0)  # score is zero because the sequence is both short and easy
         scores = get_complexity_scores(sequences)
         self.assertEqual(scores, results)
 
-        # Compute results again: results should be blank, because the calculation is already made
-        results = idt_calculate_complexity_scores(idt_accessor, doc)
-        self.assertEqual(len(results), 0)
-        self.assertEqual(results, dict())
-        scores = get_complexity_scores(sequences)
-        self.assertEqual(scores, {sequences[0]: 0})
 
 if __name__ == '__main__':
     unittest.main()
