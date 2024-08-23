@@ -8,11 +8,9 @@ import tempfile
 import git
 import sbol3
 from unittest.mock import patch
-import scripts
-import scripts.scriptutils
 from scripts.calculate_complexity_scores import IDTAccountAccessor, idt_calculate_complexity_scores, \
     idt_calculate_sequence_complexity_scores, get_complexity_scores
-from scriptutils.helpers import vector_to_insert
+from scripts.scriptutils.helpers import vector_to_insert
 
 BUILD_PRODUCTS_COLLECTION = 'BuildProducts'
 package = scripts.scriptutils.package_dirs()
