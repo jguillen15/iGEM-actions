@@ -6,7 +6,7 @@ inputs:
     required: true
     default: ${{ github.token }}
   secret-input:
-    description: 'A secret input'
+    description: 'A secret input containing the IDT Credentials'
     required: true
 runs:
     using: composite

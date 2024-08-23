@@ -16,11 +16,7 @@ package = scriptutils.package_dirs()
 
 print(f'Calculating complexity scores for {os.path.basename(package)}')
 
-secret_input = os.getenv('SECRET_INPUT')  # Note: GitHub actions inputs are prefixed with 'INPUT_' and converted to uppercase with '-' replaced by '_'
-if secret_input:
-    print(f'The secret is: {secret_input}')
-else:
-    print('Secret input not found.')
+secret_input = os.getenv('SECRET_INPUT')  # Get the IDT Credentials
 
 # File path where the JSON file will be created
 file_path = os.path.join(package, 'test_secret_idt_credentials.json')
@@ -29,7 +25,7 @@ try:
      # Get the collection of linear build products - the things to actually be synthesized
     print(f'Exporting files for synthesis')
     doc = sbol3.Document()
-    doc.read(os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME))#Take package.nt as SBOL document
+    doc.read(os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME)) 
 
     build_plan = doc.find(BUILD_PRODUCTS_COLLECTION)
     if not build_plan or not isinstance(build_plan, sbol3.Collection):
@@ -54,16 +50,14 @@ try:
     
     full_constructs = [m.lookup() for m in sorted(build_plan.members)]
     inserts = [vector_to_insert(c) for c in full_constructs]  # May contain non-vector full_constructs
-    print(type(inserts[0]))
     sequences = [obj.sequences[0].lookup() for obj in inserts if isinstance(obj, sbol3.Component)]
-    print(len(sequences))
-    print(type(sequences[0]))
+
     with open(file_path) as credentials:
             idt_accessor = IDTAccountAccessor.from_json(json.load(credentials))
 
     results = idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
     doc.write(os.path.join(package, EXPORT_DIRECTORY, SBOL_PACKAGE_NAME), sbol3.SORTED_NTRIPLES)
-    print(f'SBOL file written to {package} with {len(results)} new scores calculated')
+    print(f'SBOL file written to {package} with {len(results)} new complexity scores calculated')
 
 except (OSError, ValueError) as e:
     print(f'Could not calculate complexity scores for {os.path.basename(package)}: {e}')

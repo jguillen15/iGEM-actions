@@ -111,15 +111,15 @@ class IDTAccountAccessor:
         """
         # Retrieve full evaluations for sequences
         scores = self.get_sequence_scores(sequences)
-        # Compute total score for each sequence as the sum all complexity scores for the sequence
         score_list = []
         description_list = []
         complexity_description = ""
         for score_set in scores:
             for sequence_scores in score_set:
+                # Compute total score for each sequence as the sum all complexity scores for the sequence
                 complexity_score = sum(score.get('Score') for score in sequence_scores)
                 score_list.append(complexity_score)
-                #complexity_description
+                # Attach complexity score additional information as a description
                 for description in sequence_scores:
                     complexity_description = complexity_description + description.get('DisplayText')
                 description_list.append(complexity_description)

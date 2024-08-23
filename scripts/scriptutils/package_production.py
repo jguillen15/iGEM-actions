@@ -222,7 +222,6 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
     # get the collection of linear build products - the things to actually be synthesized
     print(f'Exporting files for synthesis')
     build_plan = doc.find(BUILD_PRODUCTS_COLLECTION)
-    measures = doc.find("Measure1")
 
     if not build_plan or not isinstance(build_plan, sbol3.Collection):
         raise ValueError(f'Document does not contain linear products collection "{BUILD_PRODUCTS_COLLECTION}"')
@@ -235,15 +234,15 @@ def extract_synthesis_files(root: str, doc: sbol3.Document) -> sbol3.Document:
     full_constructs = [m.lookup() for m in sorted(build_plan.members)]
     inserts = {c: vector_to_insert(c) for c in full_constructs}  # May contain non-vector full_constructs
 
-    sequence_number_warning = 'Omitting {}: GenBank exports require 1 sequence, but found {}'
+    measured_sequence_number_warning = 'Omitting {}: Complexity scores exports require 1 sequence, but found {}'
     for vector, insert in inserts.items():
         if len(insert.sequences) != 1:
-            print(sequence_number_warning.format(insert.identity, len(insert.sequences)))
+            print(measured_sequence_number_warning.format(insert.identity, len(insert.sequences)))
         if insert.sequences != []:
             insert.sequences[0].lookup().measures = []    
 
     # for GenBank export, copy build products to new Document, omitting ones without sequences
-    #sequence_number_warning = 'Omitting {}: GenBank exports require 1 sequence, but found {}'
+    sequence_number_warning = 'Omitting {}: GenBank exports require 1 sequence, but found {}'
     build_doc = sbol3.Document()
     components_copied = set(full_constructs)  # all of these will be copied directly in the next iterator
     n_genbank_constructs = 0

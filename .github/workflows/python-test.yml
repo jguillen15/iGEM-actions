@@ -24,5 +24,4 @@ jobs:
     - name: Test with pytest
       run: |
         echo "$IDT_CREDENTIALS" > test_secret_idt_credentials.json
-        echo "The path of test_secret_idt_credentials.json is: $(pwd)/test_secret_idt_credentials.json"
         PYTHONPATH=. pytest

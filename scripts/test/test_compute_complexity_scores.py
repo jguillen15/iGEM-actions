@@ -22,10 +22,6 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
         """Test that a library-call invocation of complexity scoring works"""
 
         secret_input = os.getenv('SECRET_INPUT')  # Note: GitHub actions inputs are prefixed with 'INPUT_' and converted to uppercase with '-' replaced by '_'
-        if secret_input:
-            print(f'The secret is: {secret_input}')
-        else:
-            print('Secret input not found.')
 
         # File path where the JSON file will be created
         root = git.Repo('.', search_parent_directories=True).working_tree_dir
@@ -35,7 +31,6 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
             idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials))
 
         doc = sbol3.Document()
-        #doc.read(root / 'test_files' / 'BBa_J23101.nt')
         doc.read(os.path.join(root, 'scripts', 'test', 'test_files', 'BBa_J23101.nt'))
 
         # Check the scores - they should initially be all missing
@@ -45,7 +40,7 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
         # Compute sequences for
         results = idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
         self.assertEqual(len(results), 1)
-        self.assertEqual(results[sequences[0]], 0)  # score is zero because the sequence both short and easy
+        self.assertEqual(results[sequences[0]], 0)  # score is zero because the sequence is both short and easy
         scores = get_complexity_scores(sequences)
         self.assertEqual(scores, results)
 
