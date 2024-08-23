@@ -27,6 +27,7 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
             idt_accessor = IDTAccountAccessor.from_json(json.load(test_credentials))
 
         doc = sbol3.Document()
+        #Test with RBS Collection package
         doc.read(os.path.join(root, 'scripts', 'test', 'test_files', 'package.nt'))
 
         # Check the scores - they should initially be all missing
