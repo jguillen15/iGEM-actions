@@ -12,7 +12,9 @@ import scripts
 import scripts.scriptutils
 from scripts.calculate_complexity_scores import IDTAccountAccessor, idt_calculate_complexity_scores, \
     idt_calculate_sequence_complexity_scores, get_complexity_scores
+from scriptutils.helpers import vector_to_insert
 
+BUILD_PRODUCTS_COLLECTION = 'BuildProducts'
 package = scripts.scriptutils.package_dirs()
 
 class TestIDTCalculateComplexityScore(unittest.TestCase):
@@ -37,9 +39,38 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
         sequences = [obj for obj in doc if isinstance(obj, sbol3.Sequence)]
         scores = get_complexity_scores(sequences)
         self.assertEqual(scores, dict())
+
+        #Filter sequences
+
+        build_plan = doc.find(BUILD_PRODUCTS_COLLECTION)
+        if not build_plan or not isinstance(build_plan, sbol3.Collection):
+            raise ValueError(f'Document does not contain linear products collection "{BUILD_PRODUCTS_COLLECTION}"')
+
+        # Identify the full constructs and synthesis targets to be copied
+        non_components = [m for m in build_plan.members if not isinstance(m.lookup(), sbol3.Component)]
+        if len(non_components):
+            raise ValueError(f'Linear products collection should contain only Components: {non_components}')
+
+        full_constructs = [m.lookup() for m in sorted(build_plan.members)]
+
+        # For GenBank export, copy build products to new Document, omitting ones without sequences
+        sequence_number_warning = 'Omitting {}: Complexity Scores exports require 1 sequence, but found {}'
+
+        for c in full_constructs:
+            # if build is missing sequence, warn and skip
+            if len(c.sequences) != 1:
+                print(sequence_number_warning.format(c.identity, len(c.sequences)))
+                build_plan.members.remove(c.identity)
+                continue
+        
+        full_constructs = [m.lookup() for m in sorted(build_plan.members)]
+        inserts = [vector_to_insert(c) for c in full_constructs]  # May contain non-vector full_constructs
+        sequences = [obj.sequences[0].lookup() for obj in inserts if isinstance(obj, sbol3.Component)]
+
+
         # Compute sequences for
         results = idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
-        print(results)
+        print("Results: ", results)
         self.assertEqual(len(results), 12)
         self.assertEqual(results[sequences[0]], 0)  # score is zero because the sequence is both short and easy
         scores = get_complexity_scores(sequences)
