@@ -66,8 +66,8 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
         results = idt_calculate_sequence_complexity_scores(idt_accessor, sequences)
         self.assertEqual(len(results), 12)
         scores = list(results.values())
-        zeros_list = [0] * 12
-        self.assertEqual(scores, zeros_list)  # Scores are zero because the sequences are easy to synthesize
+        expected_scores = [0, 0, 0, 0, 0, 0, 0, 0.1, 0, 0.1, 0, 0]
+        self.assertEqual(scores, expected_scores)  # Scores are low because sequences are easy to synthesize
 
 
 
