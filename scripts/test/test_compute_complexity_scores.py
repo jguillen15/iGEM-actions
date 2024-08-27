@@ -28,7 +28,7 @@ class TestIDTCalculateComplexityScore(unittest.TestCase):
 
         doc = sbol3.Document()
         #Test with RBS Collection package
-        doc.read(os.path.join(root, 'scripts', 'test', 'test_files', 'package.nt'))
+        doc.read(os.path.join(root, 'scripts', 'test', 'test_files', 'package_RBS_Collection.nt'))
 
         # Check the scores - they should initially be all missing
         sequences = [obj for obj in doc if isinstance(obj, sbol3.Sequence)]
